@@ -9,4 +9,8 @@ describe("String Calculator", () => {
     expect(add("1")).toBe(1);
   });
 
+  test("returns the sum of two numbers when input is two numbers separated by a comma", () => {
+    expect(add("1,2")).toBe(3);
+  });
+
 });
