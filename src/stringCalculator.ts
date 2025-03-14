@@ -3,10 +3,19 @@ export const add = (numbers: string): number => {
 
   let delimiter = /[\n,]/;
 
-  const customDelimiterMatch = numbers.match(/^\/\/(.+)\n/);
+  const customDelimiterMatch = numbers.match(/^\/\/(\[.*\]|.)\n/);
 
   if (customDelimiterMatch) {
-    delimiter = new RegExp(customDelimiterMatch[1]);
+    let customDelimiter = customDelimiterMatch[1];
+
+    if (customDelimiter.startsWith("[") && customDelimiter.endsWith("]")) {
+      customDelimiter = customDelimiter
+        .slice(1, -1)
+        .replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+    }
+
+    delimiter = new RegExp(customDelimiter);
+
     numbers = numbers.slice(customDelimiterMatch[0].length);
   }
 
@@ -22,5 +31,5 @@ export const add = (numbers: string): number => {
     );
   }
 
-  return numbersArray.reduce((acc, number) => acc + number, 0);  
+  return numbersArray.reduce((acc, number) => acc + number, 0);
 };
