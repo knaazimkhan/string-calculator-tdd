@@ -48,5 +48,11 @@ describe("String Calculator", () => {
   test("supports multiple custom delimiters of any length", () => {
     expect(add("//[***][%%]\n1***2%%3")).toBe(6);
   });
+
+  test("supports multiple custom delimiters with length longer than one character", () => {
+    expect(add("//[***][%%%]\n1***2%%%3")).toBe(6);
+    expect(add("//[abc][def]\n4abc5def6")).toBe(15);
+    expect(add("//[***][%%][#]\n1***2%%3#4")).toBe(10);
+  });
   
 });
