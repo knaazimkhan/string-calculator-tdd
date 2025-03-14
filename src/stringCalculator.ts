@@ -2,8 +2,10 @@ export const add = (numbers: string): number => {
   if (numbers === "") return 0;
 
   if (numbers.includes(",")) {
-    const [firstNumber, secondNumber] = numbers.split(",");
-    return parseInt(firstNumber, 10) + parseInt(secondNumber, 10);
+    const numbersArray = numbers
+      .split(",")
+      .map((number) => parseInt(number.trim(), 10));
+    return numbersArray.reduce((acc, number) => acc + number, 0);
   }
 
   return parseInt(numbers, 10);
