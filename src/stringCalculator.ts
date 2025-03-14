@@ -3,7 +3,7 @@ export const add = (numbers: string): number => {
 
   if (numbers.includes(",")) {
     const numbersArray = numbers
-      .split(",")
+      .split(/[\n,]/)
       .map((number) => parseInt(number.trim(), 10));
     return numbersArray.reduce((acc, number) => acc + number, 0);
   }
