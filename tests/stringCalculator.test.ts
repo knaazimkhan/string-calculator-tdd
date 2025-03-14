@@ -16,9 +16,8 @@ describe("String Calculator", () => {
   test("handles new lines as delimiters alongside commas", () => {
     expect(add("1\n2,3")).toBe(6);
   });
-  
+
   test("supports custom delimiters defined at the start of the string", () => {
     expect(add("//;\n1;2")).toBe(3);
-  });  
-
+  });
 });

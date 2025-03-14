@@ -1,23 +1,18 @@
 export const add = (numbers: string): number => {
   if (numbers === "") return 0;
 
+  let delimiter = /[\n,]/;
+
   const customDelimiterMatch = numbers.match(/^\/\/(.+)\n/);
 
   if (customDelimiterMatch) {
-    const customDelimiter = customDelimiterMatch[1];
-    const numbersArray = numbers
-      .split(customDelimiter)
-      .slice(1)
-      .map((number) => parseInt(number.trim(), 10));
-    return numbersArray.reduce((acc, number) => acc + number, 0);
+    delimiter = new RegExp(customDelimiterMatch[1]);
+    numbers = numbers.slice(customDelimiterMatch[0].length);
   }
 
-  if (numbers.includes(",")) {
-    const numbersArray = numbers
-      .split(/[\n,]/)
-      .map((number) => parseInt(number.trim(), 10));
-    return numbersArray.reduce((acc, number) => acc + number, 0);
-  }
+  const numbersArray = numbers
+    .split(delimiter)
+    .map((number) => parseInt(number.trim(), 10));
 
-  return parseInt(numbers, 10);
+  return numbersArray.reduce((acc, number) => acc + number, 0);  
 };
