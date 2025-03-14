@@ -29,5 +29,11 @@ describe("String Calculator", () => {
     expect(() => add("1,-2,-3,4")).toThrow(
       "negative numbers not allowed: -2, -3"
     );
-  });  
+  });
+
+  test("ignores numbers greater than 1000", () => {
+    expect(add("2,1001")).toBe(2);
+    expect(add("1000,3")).toBe(1003);
+  });
+  
 });

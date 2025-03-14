@@ -12,7 +12,8 @@ export const add = (numbers: string): number => {
 
   const numbersArray = numbers
     .split(delimiter)
-    .map((number) => parseInt(number.trim(), 10));
+    .map((number) => parseInt(number.trim(), 10))
+    .filter((number) => number <= 1000);
 
   const negativeNumbers = numbersArray.filter((number) => number < 0);
   if (negativeNumbers.length > 0) {
