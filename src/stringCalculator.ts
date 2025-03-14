@@ -6,15 +6,17 @@ export const add = (numbers: string): number => {
   const customDelimiterMatch = numbers.match(/^\/\/(\[.*\]|.)\n/);
 
   if (customDelimiterMatch) {
-    let customDelimiter = customDelimiterMatch[1];
+    const delimiterPart = customDelimiterMatch[1];
 
-    if (customDelimiter.startsWith("[") && customDelimiter.endsWith("]")) {
-      customDelimiter = customDelimiter
-        .slice(1, -1)
-        .replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-    }
-
-    delimiter = new RegExp(customDelimiter);
+    if (delimiterPart.startsWith("[") && delimiterPart.endsWith("]")) {
+      const delimiters = [...delimiterPart.matchAll(/\[(.*?)\]/g)].map(
+        (m) => m[1]
+      );
+      const escapedDelimiters = delimiters.map((d) =>
+        d.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+      );
+      delimiter = new RegExp(escapedDelimiters.join("|"));
+    } else delimiter = new RegExp(delimiterPart);
 
     numbers = numbers.slice(customDelimiterMatch[0].length);
   }
